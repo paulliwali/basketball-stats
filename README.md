@@ -8,7 +8,7 @@
 4. Averaged the difference for each stadium
 5. Graphed the results
 
-![results](https://github.com/paulliwali/Basketball-Stats/blob/master/results.png)
+![results](https://github.com/paulliwali/Basketball-Stats/blob/master/effects-of-stadiums/results.png)
 
 ## (planned) Correlation between a player's salary percentage and his stat
 
