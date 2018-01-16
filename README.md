@@ -13,7 +13,9 @@
 ## Guards Assist vs Secondary Assist<sup>[1](#myfootnote1)</sup> in 17-18 Season so far
 
 1. Collect the current 2017 to 2018 season data for guards' assist and secondary assist from NBA.com
-2. 
+2. As of Dec 29, 2018
+
+![results](https://github.com/paulliwali/Basketball-Stats/blob/master/assist-vs-secondary-assist/results.png)
 
 <a name="myfootnote1">1</a>: A player is awarded a secondary assist if they passed the ball to a player who recorded an assist within 1 second and without dribbling
 
