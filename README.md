@@ -12,8 +12,11 @@
 
 ## Guards Assist vs Secondary Assist<sup>[1](#myfootnote1)</sup> in 17-18 Season so far
 
-1. Collect the current 2017 to 2018 season data for guards' assist and secondary assist from NBA.com
-2. As of Dec 29, 2018
+1. Collect the current 2017 to 2018 season data (as of Dec 29, 2018) for guards' assist and secondary assist from NBA.com
+2. Filter through and remove the trivial stats. (Assists of less than 6.0 or Secondary Assists of less than 1.0)
+3. Plot the results with an average of all guards
+4. Label the stand outs
+5. Bug: Overlapping names
 
 ![results](https://github.com/paulliwali/Basketball-Stats/blob/master/assist-vs-secondary-assist/results.png)
 
