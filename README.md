@@ -28,3 +28,5 @@
 2. Calculate the cap hit percentage of each 50 players with their team
 3. Develop potential explaination with a certain stat and the cap hit
 4. Graph the results
+
+## (planned) Neural network for a player's basic stats (Ppg, rpg, apg) based on team stats
