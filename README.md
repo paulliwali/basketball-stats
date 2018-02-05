@@ -30,3 +30,31 @@
 4. Graph the results
 
 ## (planned) Neural network for a player's basic stats (Ppg, rpg, apg) based on team stats
+
+## (planne) Neural network to predict whether a college player will be a success or bust
+
+#### Defining a success or bust
+* Limit the player pool to round 1
+* A success is starter level player for non-lottery first round picks OR all-NBA level player for lottery picks
+* Inputs for college players include:
+    * basic physical stats
+    * basic basketball related stats
+    * advanced offensive stats
+    * advanced defensive stats
+    * type of coaching/system
+    * type of conference
+* Output for players:
+    * 0 for fail
+    * 1 for success
+* Assumptions:
+    * Eras/decades will influence the weights on the different inputs, so use some years of the same era as test to predict other years of the same era
+    * There might not be enough test data if the eras/decades are separated into cohorts
+* Input data format:
+
+|player_name|isSucessful|physical-stats|basic-stats|advanced-oStats|advanced-dStats|conference|
+|=============================================================================================|
+|Player A   |True       |###, ###, ### |###, ###, #|#, ###, ###, # |###, ###, ###  |100000000 |
+
+
+
+
