@@ -55,7 +55,7 @@
 |=============================================================================================|
 |Player A   |True       |###, ###, ### |###, ###, #|#, ###, ###, # |###, ###, ###  |100000000 |
 
-- [] Gather csv file with 1st round playeer's college data for 2005 to 2015
-- [] Create a rough NN with this
-- [] Test the hypothesis
+[] Gather csv file with 1st round playeer's college data for 2005 to 2015
+[] Create a rough NN with this
+[] Test the hypothesis
 
