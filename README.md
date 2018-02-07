@@ -35,7 +35,7 @@
 
 #### Defining a success or bust
 - Limit the player pool to round 1
-- A success is starter level player for non-lottery first round picks OR all-NBA level player for lottery picks
+- A success is starter level (3 seasons of GS/G% > 75%) player for non-lottery first round picks OR all-NBA level (once) player for lottery picks
 - Inputs for college players include:
     - basic physical stats
     - basic basketball related stats
