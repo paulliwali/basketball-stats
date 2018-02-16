@@ -31,7 +31,7 @@
 
 ## (planned) Neural network for a player's basic stats (Ppg, rpg, apg) based on team stats
 
-## (planned) Neural network to predict whether a college player will be a success or bust
+## Neural network to predict whether a college player will be a success or bust
 
 #### Defining a success or bust
 - Limit the player pool to round 1
@@ -49,13 +49,15 @@
 - Assumptions:
     - Eras/decades will influence the weights on the different inputs, so use some years of the same era as test to predict other years of the same era
     - There might not be enough test data if the eras/decades are separated into cohorts
+    - Maybe loose the all-NBA status to all-star status for lottery picks
 - Input data format:
 
 |player_name|isSucessful|physical-stats|basic-stats|advanced-oStats|advanced-dStats|conference|
 |=============================================================================================|
 |Player A   |True       |###, ###, ### |###, ###, #|#, ###, ###, # |###, ###, ###  |100000000 |
 
-[] Gather csv file with 1st round playeer's college data for 2005 to 2015
-[] Create a rough NN with this
+[x] Gather csv file with 1st round playeer's college data for 2005
+[x] Create a rough NN with this
+[] Gather csv file of all other data
 [] Test the hypothesis
 
