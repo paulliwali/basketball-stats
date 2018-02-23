@@ -1,6 +1,7 @@
 import os
 import numpy as np 
 import pandas as pd
+import data_prep
 from keras.models import Sequential
 from keras.layers import Dense
 
@@ -21,8 +22,13 @@ dataset2004 = pd.read_csv(filename, comment='#')
 X = X.append(dataset2004.iloc[:,2:19], ignore_index=True)
 Y = Y.append(dataset2004.iloc[:,1], ignore_index=True)
 
-print(X)
-print(Y)
+# Rescale the X to between 0 and 1
+# Result - worse than normal setup
+# rescaledX = (data_prep.rescaleData(X, Y))
+
+# Stardardize the X to Gaussian Distribution
+# Result - worse than normal setup
+# standardX = (data_prep.stardardizeData(X, Y))
 
 # Building the model
 model = Sequential()
@@ -40,6 +46,7 @@ model.fit(X.values, Y.values, epochs=100, batch_size=10)
 predictions = model.predict(X.values)
 rounded = [round(x[0]) for x in predictions]
 print(rounded)
+# With L0 - 8, L1 - 2 it produces okay results of accuracy of 0.8108
 
 # Evaluate the model with test data
 filename_test = os.path.join(dir, "test_stat.csv")
