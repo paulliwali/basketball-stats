@@ -48,3 +48,9 @@ Temporary Items
 
 # Zip files
 .zip
+
+# Log files in the results
+college-predictor/results/
+
+# Byte-compiled
+__pycache__/
