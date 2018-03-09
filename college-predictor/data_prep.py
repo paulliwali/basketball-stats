@@ -15,3 +15,8 @@ def stardardizeData(X, Y):
     scaler = sklearn.preprocessing.StandardScaler().fit(X)
     standardX = scaler.transform(X)
     return standardX
+
+def commentHighSchoolPlayers(datafile):
+    # Run through the input datafiles and comment lines where players have 0s in all the
+    # statistical categories
+    return
