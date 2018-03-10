@@ -1,6 +1,8 @@
 import pandas
 import scipy
 import numpy
+import csv
+import os
 import sklearn.preprocessing
 
 def rescaleData(X, Y):
@@ -19,4 +21,18 @@ def stardardizeData(X, Y):
 def commentHighSchoolPlayers(datafile):
     # Run through the input datafiles and comment lines where players have 0s in all the
     # statistical categories
+    dir = os.path.dirname(__file__)
+    datafilepath = os.path.join(dir, 'data', datafile)
+    newdatafilepath = os.path.join(dir, 'data', 'working', datafile)
+
+    r = csv.reader(open(datafilepath))
+    lines = list(r)
+    for rows in lines:
+        if rows.count('0') > 10:
+            rows[0] = "#" + str(rows[0])
+        else:
+            next
+        print(rows)
+    writer = csv.writer(open(newdatafilepath, 'w', newline=''))
+    writer.writerows(lines)
     return

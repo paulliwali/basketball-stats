@@ -8,6 +8,8 @@ from keras.models import Sequential
 from keras.layers import Dense
 from keras.callbacks import CSVLogger, TensorBoard
 
+# TODO Adjust stats to possessions
+
 def runNeuralNetwork(dataName, epochs, batch, learningRate, exportCSV):
     # Fix the random seed for testing
     np.random.seed(7)
@@ -19,9 +21,11 @@ def runNeuralNetwork(dataName, epochs, batch, learningRate, exportCSV):
         csvFilename = '%s_e%s_b%s_lr%s.csv' % (dataName, epochs, batch, learningRate)
         csvPathname = os.path.join(dir, 'results', csvFilename)
 
-    # Reading 2000 to 2009 data
-    filename = os.path.join(dir, 'data', dataName)
+    # Reading data
+    filename = os.path.join(dir, 'data', 'working', dataName)
     dataset = pd.read_csv(filename, comment='#')
+    # Only the first 14 variable is looked at, need a way to identify which subset of
+    # variables to include
     X = dataset.iloc[:,4:18]
     Y = dataset.iloc[:,3]
 
@@ -70,10 +74,11 @@ def runNeuralNetwork(dataName, epochs, batch, learningRate, exportCSV):
     print("\n%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
 
 if __name__ == "__main__":
-    dataName = '2000-2009.csv'
+    dataName = "2000-2009.csv"
     epochs = 500
     batch = 10
     learningRate = 0.001
     exportCSV = True
 
+    #data_prep.commentHighSchoolPlayers(dataName)
     runNeuralNetwork(dataName, epochs, batch, learningRate, exportCSV)
