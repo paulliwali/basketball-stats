@@ -8,8 +8,6 @@ from keras.models import Sequential
 from keras.layers import Dense
 from keras.callbacks import CSVLogger, TensorBoard
 
-# TODO Adjust stats to possessions
-
 def runNeuralNetwork(dataName, epochs, batch, learningRate, exportCSV):
     # Fix the random seed for testing
     np.random.seed(7)
@@ -24,11 +22,10 @@ def runNeuralNetwork(dataName, epochs, batch, learningRate, exportCSV):
     # Reading data
     filename = os.path.join(dir, 'data', 'working', dataName)
     dataset = pd.read_csv(filename, comment='#')
-    # Only the first 14 variable is looked at, need a way to identify which subset of
+    # TODO Only the first 18 variable is looked at, need a way to identify which subset of
     # variables to include
-    X = dataset.iloc[:,4:18]
+    X = dataset.iloc[:,4:22]
     Y = dataset.iloc[:,3]
-
     print(X)
 
     # Rescale the X to between 0 and 1
@@ -41,7 +38,7 @@ def runNeuralNetwork(dataName, epochs, batch, learningRate, exportCSV):
 
     # Building the model
     model = Sequential()
-    model.add(Dense(12, input_dim=14, activation='relu'))
+    model.add(Dense(12, input_dim=18, activation='relu'))
     model.add(Dense(9, activation='relu'))
     model.add(Dense(8, activation='relu'))
     model.add(Dense(6, activation='relu'))
@@ -49,6 +46,7 @@ def runNeuralNetwork(dataName, epochs, batch, learningRate, exportCSV):
     model.add(Dense(1, activation='sigmoid'))
 
     # Compile the model
+    # Initialize two different optimizers
     adam = optimizers.adam(lr=learningRate)
     sgd = optimizers.sgd(lr=learningRate, momentum=0.01)
     model.compile(loss='binary_crossentropy', optimizer=adam, metrics=['accuracy'])
@@ -66,19 +64,18 @@ def runNeuralNetwork(dataName, epochs, batch, learningRate, exportCSV):
     # With L0 - 8, L1 - 2 it produces okay results of accuracy of 0.8108
 
     # Evaluate the model with test data
-    filename_test = os.path.join(dir, 'data', "test_stat.csv")
-    dataset_test = pd.read_csv(filename_test)
-    X_test = dataset_test.iloc[:,2:16]
-    Y_test = dataset_test.iloc[:,1]
+    filename_test = os.path.join(dir, 'data', 'working', '2010-2017-pace-working.csv')
+    dataset_test = pd.read_csv(filename_test, comment='#')
+    X_test = dataset_test.iloc[:,4:22]
+    Y_test = dataset_test.iloc[:,3]
     scores = model.evaluate(X_test.values, Y_test.values)
     print("\n%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
 
 if __name__ == "__main__":
-    dataName = "2000-2009.csv"
+    dataName = "2000-2009-pace-working.csv"
     epochs = 500
     batch = 10
     learningRate = 0.001
     exportCSV = True
 
-    #data_prep.commentHighSchoolPlayers(dataName)
     runNeuralNetwork(dataName, epochs, batch, learningRate, exportCSV)

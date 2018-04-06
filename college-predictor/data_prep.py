@@ -25,11 +25,15 @@ def commentHighSchoolPlayers(datafile):
     datafilepath = os.path.join(dir, 'data', datafile)
     newdatafilepath = os.path.join(dir, 'data', 'working', datafile)
 
-    r = csv.reader(open(datafilepath))
+    r = csv.reader(open(datafilepath, 'r'))
     lines = list(r)
     for rows in lines:
         if rows.count('0') > 10:
             rows[0] = "#" + str(rows[0])
+        elif "Did Not Attend College" in rows:
+            rows[0] = '#' + str(rows[0])
+        elif "College Not Found" in rows:
+            rows[0] = '#' + str(rows[0])
         else:
             next
         print(rows)
