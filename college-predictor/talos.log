@@ -1,0 +1,12 @@
+10,2,30,100,0,'normal','Adam','binary_crossentropy','elu','sigmoid',0.971
+10,0,30,100,0,'normal','Adam','binary_crossentropy','elu','sigmoid',0.971
+10,1,30,100,0,'normal','Adam','binary_crossentropy','relu','sigmoid',0.979
+10,0,30,100,0,'normal','Adam','binary_crossentropy','relu','sigmoid',0.979
+10,1,30,100,0,'normal','Adam','binary_crossentropy','elu','sigmoid',0.971
+10,2,30,100,0,'uniform','Adam','binary_crossentropy','relu','sigmoid',0.979
+10,0,30,100,0,'uniform','Adam','binary_crossentropy','elu','sigmoid',0.971
+10,1,30,100,0,'uniform','Adam','binary_crossentropy','elu','sigmoid',0.971
+10,2,30,100,0,'normal','Adam','binary_crossentropy','relu','sigmoid',0.971
+10,2,30,100,0,'uniform','Adam','binary_crossentropy','elu','sigmoid',0.971
+10,1,30,100,0,'uniform','Adam','binary_crossentropy','relu','sigmoid',0.971
+10,0,30,100,0,'uniform','Adam','binary_crossentropy','relu','sigmoid',0.971
