@@ -33,31 +33,44 @@
 
 ## Neural network to predict whether a college player will be a success or bust
 
-#### Defining a success or bust
+### Defining a success or bust
 - Limit the player pool to round 1
 - A success is starter level (3 seasons of GS/G% > 75%) player for non-lottery first round picks OR all-NBA level (once) player for lottery picks
 - Inputs for college players include:
-    - basic physical stats
-    - basic basketball related stats
-    - advanced offensive stats
-    - advanced defensive stats
-    - type of coaching/system
-    - type of conference
-- Output for players:
-    - 0 for fail
-    - 1 for success
-- Assumptions:
-    - Eras/decades will influence the weights on the different inputs, so use some years of the same era as test to predict other years of the same era
-    - There might not be enough test data if the eras/decades are separated into cohorts
-    - Maybe loose the all-NBA status to all-star status for lottery picks
-- Input data format:
+    - personal physical stats
+    - personal basketball related stats
+    - team pace stats to adjust the basic personal stats
 
-|player_name|isSucessful|physical-stats|basic-stats|advanced-oStats|advanced-dStats|conference|
-|=============================================================================================|
-|Player A   |True       |###, ###, ### |###, ###, #|#, ###, ###, # |###, ###, ###  |100000000 |
-
-[x] Gather csv file with 1st round playeer's college data for 2005
-[x] Create a rough NN with this
-[] Gather csv file of all other data
-[] Test the hypothesis
-
+### Results (so-far)
+|Pick Number | Player  | Probability of Success |
+|------------| ------------- | ------------- |
+| 1  | Deandre Ayton  | 27.2%  |
+| 2  | Marvin Bagley | 27.1%  |
+| 3  | Luka Doncic | N/A  |
+| 4  | Jaren Jackson  | 29.1%  |
+| 5  | Trae Young | 24.5%  |
+| 6  | Mohamed Bamba  | 29.1%  |
+| 7  | Wendell Carter | 28.1%  |
+| 8  | Collin Sexton  | 27.4%  |
+| 9  | Kevin Knox | 27.5%  |
+| 10 | Mikal Bridges  | 21.6%  |
+| 11  | Shai Gilgeous-Alexander  | 27.8%  |
+| 12  | Miles Bridges | 23.6%  |
+| 13  | Jerome Robinson | 19.8%  |
+| 14  | Michael Porter  | 35.3%  |
+| 15  | Troy Brown | 28.3%  |
+| 16  | Zhaire Smith  | 29.0%  |
+| 17  | Donte DiVincenzo | 24.1%  |
+| 18  | Lonnie Walker | 29.0%  |
+| 19  | Kevin Huerter | 24.9%  |
+| 20 | Josh Okogie  | 24.1%  |
+| 21  | Grayson Allen  | 16.5%  |
+| 22  | Chandler Hutchison | 20.7%  |
+| 23  | Aaron Holiday | 19.8%  |
+| 24  | Anfernee Simons  | N/A  |
+| 25  | Moritz Wagner | 23.6%  |
+| 26  | Landry Shamet  | 24.1%  |
+| 27  | Robert Williams | 26.7%  |
+| 28  | Jacob Evans | 21.1%  |
+| 29  | Dzanan Musa | N/A  |
+| 30 | Omari Spellman | 28.2%  |
