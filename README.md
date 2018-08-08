@@ -29,8 +29,6 @@
 3. Develop potential explaination with a certain stat and the cap hit
 4. Graph the results
 
-## (planned) Neural network for a player's basic stats (Ppg, rpg, apg) based on team stats
-
 ## Neural network to predict whether a college player will be a success or bust
 
 ### Defining a success or bust
