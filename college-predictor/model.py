@@ -51,7 +51,7 @@ def scan_hyperparameter(x_train, y_train, x_val, y_val, params):
 
     return history, model
 
-def runNeuralNetwork(x, y, epochs, batch, learningRate):
+def runNeuralNetwork(x, y, x_pre, epochs, batch, learningRate):
     dir = os.path.dirname(__file__)
 
     # Building the model
@@ -59,10 +59,10 @@ def runNeuralNetwork(x, y, epochs, batch, learningRate):
     model.add(Dense(12,
                     kernel_initializer='random_normal',
                     input_dim=18,
-                    activation='relu'))
+                    activation='elu'))
     model.add(Dropout(0))
-    model.add(Dense(8, activation='relu'))
-    model.add(Dense(4, activation='relu'))
+    model.add(Dense(8, activation='elu'))
+    model.add(Dense(4, activation='elu'))
     model.add(Dense(1, activation='sigmoid'))
 
     # Compile the model
@@ -77,14 +77,18 @@ def runNeuralNetwork(x, y, epochs, batch, learningRate):
               batch_size=batch,
               callbacks=[tensorboard])
 
-    # # Make predictions with the model
-    # predictions = model.predict(X.values)
+    # Make predictions with the model
+    predictions = model.predict(x_pre.values)
+    print(predictions)
     # rounded = [round(x[0]) for x in predictions]
     # print(rounded)
 
 def main():
     inputDataName = "2000-2017-pace.csv"
     x, y = readInputs(inputDataName)
+
+    predictionDataName = "2018-2018-pace-working.csv"
+    x_pre, y_pre = readInputs(predictionDataName)
 
     p = {'lr': (0.001, 0.005, 2),
      'first_neuron':[12, 6],
@@ -107,8 +111,8 @@ def main():
     #         experiment_no='2')
 
     epochs = 200
-    batch = 10
-    learningRate = 0.001
-    runNeuralNetwork(x, y, epochs, batch, learningRate)
+    batch = 20
+    learningRate = 0.003
+    runNeuralNetwork(x, y, x_pre, epochs, batch, learningRate)
 
 if __name__ == "__main__": main()
