@@ -51,7 +51,8 @@ def scan_hyperparameter(x_train, y_train, x_val, y_val, params):
 
     return history, model
 
-def runNeuralNetwork(x, y, epochs, batch, learningRate):
+def runNeuralNetwork(x, y, epochs, batch, learningRate,
+                     activation, final_activation, dropout_rate):
     dir = os.path.dirname(__file__)
 
     # Building the model
@@ -59,11 +60,11 @@ def runNeuralNetwork(x, y, epochs, batch, learningRate):
     model.add(Dense(12,
                     kernel_initializer='random_normal',
                     input_dim=18,
-                    activation='relu'))
-    model.add(Dropout(0))
-    model.add(Dense(8, activation='relu'))
-    model.add(Dense(4, activation='relu'))
-    model.add(Dense(1, activation='sigmoid'))
+                    activation=activation))
+    model.add(Dropout(dropout_rate))
+    model.add(Dense(8, activation=activation))
+    model.add(Dense(4, activation=activation))
+    model.add(Dense(1, activation=final_activation))
 
     # Compile the model
     model.compile(loss='mean_squared_error', optimizer=Adam(lr=learningRate), metrics=['accuracy'])
@@ -107,8 +108,11 @@ def main():
     #         experiment_no='2')
 
     epochs = 200
-    batch = 10
-    learningRate = 0.001
-    runNeuralNetwork(x, y, epochs, batch, learningRate)
+    batch = 20
+    learningRate = 0.003
+    activation = "elu"
+    final_activation = "sigmoid"
+    dropout_rate = 0.2
+    runNeuralNetwork(x, y, epochs, batch, learningRate, activation, final_activation)
 
 if __name__ == "__main__": main()
