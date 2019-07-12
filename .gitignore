@@ -52,5 +52,8 @@ Temporary Items
 # Log files in the results
 college-predictor/results/
 
+# Input Data Folder
+input-data/
+
 # Byte-compiled
 __pycache__/

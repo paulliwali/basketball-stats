@@ -51,8 +51,12 @@ def scan_hyperparameter(x_train, y_train, x_val, y_val, params):
 
     return history, model
 
+<<<<<<< HEAD
 def runNeuralNetwork(x, y, epochs, batch, learningRate,
                      activation, final_activation, dropout_rate):
+=======
+def runNeuralNetwork(x, y, x_pre, epochs, batch, learningRate):
+>>>>>>> 2cd04b1e2f1db69578fddbd81cb70c860f04a6bf
     dir = os.path.dirname(__file__)
 
     # Building the model
@@ -60,11 +64,19 @@ def runNeuralNetwork(x, y, epochs, batch, learningRate,
     model.add(Dense(12,
                     kernel_initializer='random_normal',
                     input_dim=18,
+<<<<<<< HEAD
                     activation=activation))
     model.add(Dropout(dropout_rate))
     model.add(Dense(8, activation=activation))
     model.add(Dense(4, activation=activation))
     model.add(Dense(1, activation=final_activation))
+=======
+                    activation='elu'))
+    model.add(Dropout(0))
+    model.add(Dense(8, activation='elu'))
+    model.add(Dense(4, activation='elu'))
+    model.add(Dense(1, activation='sigmoid'))
+>>>>>>> 2cd04b1e2f1db69578fddbd81cb70c860f04a6bf
 
     # Compile the model
     model.compile(loss='mean_squared_error', optimizer=Adam(lr=learningRate), metrics=['accuracy'])
@@ -78,14 +90,18 @@ def runNeuralNetwork(x, y, epochs, batch, learningRate,
               batch_size=batch,
               callbacks=[tensorboard])
 
-    # # Make predictions with the model
-    # predictions = model.predict(X.values)
+    # Make predictions with the model
+    predictions = model.predict(x_pre.values)
+    print(predictions)
     # rounded = [round(x[0]) for x in predictions]
     # print(rounded)
 
 def main():
     inputDataName = "2000-2017-pace.csv"
     x, y = readInputs(inputDataName)
+
+    predictionDataName = "2018-2018-pace-working.csv"
+    x_pre, y_pre = readInputs(predictionDataName)
 
     p = {'lr': (0.001, 0.005, 2),
      'first_neuron':[12, 6],
@@ -110,9 +126,13 @@ def main():
     epochs = 200
     batch = 20
     learningRate = 0.003
+<<<<<<< HEAD
     activation = "elu"
     final_activation = "sigmoid"
     dropout_rate = 0.2
     runNeuralNetwork(x, y, epochs, batch, learningRate, activation, final_activation)
+=======
+    runNeuralNetwork(x, y, x_pre, epochs, batch, learningRate)
+>>>>>>> 2cd04b1e2f1db69578fddbd81cb70c860f04a6bf
 
 if __name__ == "__main__": main()
