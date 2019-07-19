@@ -1,0 +1,163 @@
+---
+title: "College Predictor"
+author: "Paul"
+date: "6/30/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r libraries, echo=FALSE, warning=FALSE}
+library(tidyverse)
+library(h2o)
+library(rsample)
+```
+
+```{r import, echo=FALSE}
+data <- read_csv("data/working/2000-2017-pace.csv", comment="#") %>%
+    mutate(IsSuccessful = as.factor(IsSuccessful)) %>%
+    mutate(`College Name` = as.factor(`College Name`)) %>%
+    mutate(FG.adj = FG/`College Pace`) %>%
+    mutate(FGA.adj = FGA/`College Pace`) %>%
+    mutate(`3P.adj` = `3P`/`College Pace`) %>%
+    mutate(`3Pa.adj` = `3Pa`/`College Pace`) %>%
+    mutate(FT.adj = FT/`College Pace`) %>%
+    mutate(FTA.adj = FTA/`College Pace`) %>%
+    mutate(ORB.adj = ORB/`College Pace`) %>%
+    mutate(TRB.adj = TRB/`College Pace`) %>%
+    mutate(AST.adj = AST/`College Pace`) %>%
+    mutate(STL.adj = STL/`College Pace`) %>%
+    mutate(BLK.adj = BLK/`College Pace`) %>%
+    mutate(TOV.adj = TOV/`College Pace`) %>%
+    mutate(PF.adj = PF/`College Pace`) %>%
+    mutate(PTS.adj = PTS/`College Pace`)
+    
+```
+
+## GBM Method
+
+```{r split data}
+set.seed(42)
+data_split <- initial_split(data, prop = 0.8,)
+train_data <- training(data_split)
+test_data <- testing(data_split)
+
+table(train_data$IsSuccessful)
+table(test_data$IsSuccessful)
+
+# There is an imbalance of data, might consider upping the successful sample
+```
+
+```{r traning gbm}
+h2o.init(nthreads = -1, max_mem_size = "12g")
+
+train <- as.h2o(train_data)
+test <- as.h2o(test_data)
+
+model <- h2o.gbm(
+    model_id = "initial_train",
+    x = c("Height", "Weight", "MP", "FG", "FGA", "3P", "3Pa", "FT", "FTA", "ORB", "TRB",
+          "AST", "STL", "BLK", "TOV", "PF", "PTS", "Years in College",
+          "FG.adj", "FGA.adj", "3P.adj", "3Pa.adj", "FT.adj", "FTA.adj", "ORB.adj", "TRB.adj",
+          "AST.adj", "STL.adj", "BLK.adj", "TOV.adj", "PF.adj", "PTS.adj"),
+    y = "IsSuccessful",
+    training_frame = train,
+    ntrees = 10000,
+    learn_rate = 0.0001,
+    learn_rate_annealing = 0.98,
+    stopping_tolerance = 0.0001,
+    stopping_rounds = 10,
+    stopping_metric = 'logloss',
+    # This specifies that each tree in the ensemble should sample without replacement
+    # from the full training dataset using a per class sampling rate. Good for imbalanced
+    # datasets
+    sample_rate_per_class = c(0.25, 1),
+    # sample_rate = 0.75,
+    # col_sample_rate = 0.95,
+    score_tree_interval = 10,
+    max_depth = 5,
+    min_rows = 10,
+    distribution = "AUTO",
+    # fold_assignment = "Stratified",
+    nfolds = 3,
+    # keep_cross_validation_predictions = TRUE,
+    seed = 42
+    )
+
+h2o.auc(h2o.performance(model, newdata = test))
+h2o.auc(h2o.performance(model, xval = TRUE))
+model@model$cross_validation_metrics_summary
+
+# save model
+gbm <- h2o.saveModel(object=model, path = "models/", force=TRUE)
+gbm <- h2o.loadModel(path = "models/initial_train")
+
+# launch h2o
+h2o.flow()
+```
+
+### GBM Development Summary
+
+Baseline Model
+
+- Baseline performance of training 80% data with default GBM parameters is an AUC value of 58.8% on testing data. Which is only slightly better than a random model.
+
+Cross fold validation
+
+- Using `n_fold` of 5.
+- The cross-fold model shows large variability between the validation sets, and similiar AUC performance as baseline model.
+
+Learning Rate
+
+- Added a lower `learn_rate` of 0.01% with 1000 trees. 
+- Added stopping criteria for AUC to prevent over-training
+- Added `sample_rate` to give stochasticity and generality
+- The AUC of testing improved to 60.1% but the mean cross validation AUC decreased to 48.8%
+
+Sampling Per Class
+
+- Added a `sample_rate_per_class` parameter to downsample the the unsuccesful entries (0.25, 1). 
+- AUC of testing improved to 64.3% and the mean cross validation AUC increased to 52.2%
+
+Search for optimal Max Depth
+
+- Cartesian search for optimal `max_depth` value
+- It seems that the top performing models ranged a depth of 7, 21, 23, 25, 29. The 7 depth is very odd. 
+
+Final Model 
+
+- Learn rate + Annealing
+- Balance
+
+
+```{r predict GBM}
+data_2018 <- read_csv("data/working/2018-2018-pace-working.csv", comment="#") %>%
+    mutate(`College Name` = as.factor(`College Name`)) %>%
+    mutate(FG.adj = FG/`College Pace`) %>%
+    mutate(FGA.adj = FGA/`College Pace`) %>%
+    mutate(`3P.adj` = `3P`/`College Pace`) %>%
+    mutate(`3Pa.adj` = `3Pa`/`College Pace`) %>%
+    mutate(FT.adj = FT/`College Pace`) %>%
+    mutate(FTA.adj = FTA/`College Pace`) %>%
+    mutate(ORB.adj = ORB/`College Pace`) %>%
+    mutate(TRB.adj = TRB/`College Pace`) %>%
+    mutate(AST.adj = AST/`College Pace`) %>%
+    mutate(STL.adj = STL/`College Pace`) %>%
+    mutate(BLK.adj = BLK/`College Pace`) %>%
+    mutate(TOV.adj = TOV/`College Pace`) %>%
+    mutate(PF.adj = PF/`College Pace`) %>%
+    mutate(PTS.adj = PTS/`College Pace`)
+
+real_test <- as.h2o(data_2018)
+
+prediction <- as.data.frame(h2o.predict(model, real_test))
+
+prediction
+
+```
+
+```{r}
+h2o.confusionMatrix(model, metrics = "f2")
+```

@@ -57,3 +57,7 @@ input-data/
 
 # Byte-compiled
 __pycache__/
+
+# VS code
+.vscode/
+.Rproj.user
