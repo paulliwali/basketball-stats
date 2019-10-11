@@ -8,7 +8,7 @@
 4. Averaged the difference for each stadium
 5. Graphed the results
 
-![results](https://github.com/paulliwali/Basketball-Stats/blob/master/effects-of-stadiums/results.png)
+![results](https://github.com/paulliwali/Basketball-Stats/blob/master/effects-of-stadiums/outputs/results.png)
 
 ## Guards Assist vs Secondary Assist<sup>[1](#myfootnote1)</sup> in 17-18 Season so far
 
