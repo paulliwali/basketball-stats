@@ -1,19 +1,15 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Mar 27 21:28:13 2017
-
-@author: paull
-"""
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
+from pathlib import Path
+
+current_dir = Path.cwd() / 'effects-of-stadiums'
 
 # using ggplot styles
 plt.style.use('ggplot')
 
 # reading the analysis dataframe from csv
-analysisDf = pd.read_csv('analysis.csv', index_col=0)
+analysisDf = pd.read_csv(current_dir / 'cache' / 'analysis.csv', index_col=0)
 teams = analysisDf['Name']
 diff = analysisDf['avgDiff']
 
@@ -36,4 +32,4 @@ def pct(x, pos):
     return "{0:.3f}%".format(float(x))
 ax.yaxis.set_major_formatter(plt.FuncFormatter(pct))
 
-plt.savefig('results.png')
+plt.savefig(current_dir / 'outputs' / 'results.png')

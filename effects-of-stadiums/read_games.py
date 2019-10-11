@@ -1,15 +1,8 @@
-# -*- coding: utf-8 -*-
-"""
-Spyder Editor
-
-This is a temporary script file.
-"""
-
 from bs4 import BeautifulSoup
 import requests
 import pandas as pd
 
-crs = open("gamelist20120510040.txt", "r")
+crs = open("inputs/gamelist20120510040.txt", "r")
 rows = ( row.strip().split() for row in crs )
 gamelist = zip(*rows)
 
@@ -59,7 +52,7 @@ for i in range(len(boxscore_url)):
     
     gameDf = gameDf.append(df, ignore_index = True)
     
-gameDf.to_csv("games.csv", sep='\t')
+gameDf.to_csv("outputs/games.csv", sep='\t')
     
 ## grabbing the first link
 ## the url needs to be modified

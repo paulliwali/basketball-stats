@@ -18,7 +18,7 @@
 4. Label the stand outs
 5. Bug: Overlapping names
 
-![results](https://github.com/paulliwali/Basketball-Stats/blob/master/assist-vs-secondary-assist/results.png)
+![results](https://github.com/paulliwali/Basketball-Stats/blob/master/assist-vs-secondary-assist/outputs/results.png)
 
 <a name="myfootnote1">1</a>: A player is awarded a secondary assist if they passed the ball to a player who recorded an assist within 1 second and without dribbling
 
