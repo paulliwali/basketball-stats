@@ -54,4 +54,4 @@ for i in range(len(boxscore_url)):
     
     gameDf = gameDf.append(df, ignore_index = True)
     
-gameDf.to_csv(current_dir / "outputs" / "games.csv", sep='\t')
+gameDf.to_csv(current_dir / "cache" / "games.csv", sep='\t')
