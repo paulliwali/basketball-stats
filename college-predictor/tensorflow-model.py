@@ -51,12 +51,7 @@ def scan_hyperparameter(x_train, y_train, x_val, y_val, params):
 
     return history, model
 
-<<<<<<< HEAD
-def runNeuralNetwork(x, y, epochs, batch, learningRate,
-                     activation, final_activation, dropout_rate):
-=======
 def runNeuralNetwork(x, y, x_pre, epochs, batch, learningRate):
->>>>>>> 2cd04b1e2f1db69578fddbd81cb70c860f04a6bf
     dir = os.path.dirname(__file__)
 
     # Building the model
@@ -64,19 +59,11 @@ def runNeuralNetwork(x, y, x_pre, epochs, batch, learningRate):
     model.add(Dense(12,
                     kernel_initializer='random_normal',
                     input_dim=18,
-<<<<<<< HEAD
-                    activation=activation))
-    model.add(Dropout(dropout_rate))
-    model.add(Dense(8, activation=activation))
-    model.add(Dense(4, activation=activation))
-    model.add(Dense(1, activation=final_activation))
-=======
                     activation='elu'))
     model.add(Dropout(0))
     model.add(Dense(8, activation='elu'))
     model.add(Dense(4, activation='elu'))
     model.add(Dense(1, activation='sigmoid'))
->>>>>>> 2cd04b1e2f1db69578fddbd81cb70c860f04a6bf
 
     # Compile the model
     model.compile(loss='mean_squared_error', optimizer=Adam(lr=learningRate), metrics=['accuracy'])
@@ -126,13 +113,6 @@ def main():
     epochs = 200
     batch = 20
     learningRate = 0.003
-<<<<<<< HEAD
-    activation = "elu"
-    final_activation = "sigmoid"
-    dropout_rate = 0.2
-    runNeuralNetwork(x, y, epochs, batch, learningRate, activation, final_activation)
-=======
     runNeuralNetwork(x, y, x_pre, epochs, batch, learningRate)
->>>>>>> 2cd04b1e2f1db69578fddbd81cb70c860f04a6bf
 
 if __name__ == "__main__": main()
