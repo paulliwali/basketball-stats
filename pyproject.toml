@@ -1,0 +1,20 @@
+[project]
+name = "basketball-stats"
+version = "0.1.0"
+description = "Basketball statistics analysis tools"
+requires-python = ">=3.11"
+dependencies = [
+    "beautifulsoup4>=4.9.0",
+    "requests>=2.25.0",
+    "pandas>=1.2.0",
+    "urllib3>=1.26.0",
+    "numpy>=1.19.0",
+    "h2o>=3.32.0"
+]
+
+[build-system]
+requires = ["setuptools>=42.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project.urls]
+repository = "https://github.com/paulliwali/Basketball-Stats"
